@@ -128,7 +128,7 @@ for i, yi in enumerate(grid_x):
                j * digit_size: (j + 1) * digit_size] = digit
 
 plt.figure(figsize=(10, 10))
-plt.imshow(figure, cmap='gist_gry_r')
+plt.imshow(figure, cmap='binary_r')
 plt.show()
 
 
