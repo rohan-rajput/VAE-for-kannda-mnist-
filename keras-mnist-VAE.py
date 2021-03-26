@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 # coding: utf-8
-
-
-
-
 import tensorflow as tf
 from tensorflow.keras.layers import Dense,Lambda,Input
 from tensorflow.keras.losses import BinaryCrossentropy
@@ -16,10 +12,6 @@ import os
 import gzip
 from tensorflow.keras.utils import get_file
 
-
-
-
-
 def load_data():
     """Loads the Kannada-MNIST dataset.
      Returns
@@ -29,7 +21,6 @@ def load_data():
     base = 'https://github.com/vinayprabhu/Kannada_MNIST/blob/master/data/output_tensors/MNIST_format/'
     files = ['y_kannada_MNIST_train-idx1-ubyte.gz', 'X_kannada_MNIST_train-idx3-ubyte.gz',
              'y_kannada_MNIST_test-idx1-ubyte.gz', 'X_kannada_MNIST_test-idx3-ubyte.gz']
-
     paths = []
     for fname in files:
         paths.append(get_file(fname,
@@ -52,10 +43,6 @@ def load_data():
 
     return (x_train, y_train), (x_test, y_test)
 
-
-
-
-
 # data load
 (x_tr, y_tr), (x_te, y_te) = load_data()
 x_tr, x_te = x_tr.astype('float32')/255., x_te.astype('float32')/255.
@@ -66,21 +53,12 @@ print(x_tr.shape, x_te.shape)
 batch_size, n_epoch = 100, 100
 n_hidden, z_dim = 256, 2
 
-
-
-
-
 # encoder
 x = Input(shape=(x_tr.shape[1:]))
 x_encoded = Dense(n_hidden, activation='relu')(x)
 x_encoded = Dense(n_hidden//2, activation='relu')(x_encoded)
-
 mu = Dense(z_dim)(x_encoded)
 log_var = Dense(z_dim)(x_encoded)
-
-
-
-
 
 # sampling function
 def sampling(args):
@@ -90,19 +68,13 @@ def sampling(args):
 
 z = Lambda(sampling, output_shape=(z_dim,))([mu, log_var])
 
-
-
-
-
 # decoder
 z_decoder1 = Dense(n_hidden//2, activation='relu')
 z_decoder2 = Dense(n_hidden, activation='relu')
 y_decoder = Dense(x_tr.shape[1], activation='sigmoid')
-
 z_decoded = z_decoder1(z)
 z_decoded = z_decoder2(z_decoded)
 y = y_decoder(z_decoded)
-
 
 # loss
 bce = tf.keras.losses.BinaryCrossentropy()
@@ -116,10 +88,6 @@ vae.add_loss(vae_loss)
 vae.compile(optimizer='rmsprop')
 vae.summary()
 
-
-
-
-
 # train
 vae.fit(x_tr,
        shuffle=True,
@@ -127,17 +95,9 @@ vae.fit(x_tr,
        batch_size=batch_size,
        validation_data=(x_te, None), verbose=1)
 
-
-
-
-
 # build encoder
 encoder = Model(x, mu)
 encoder.summary()
-
-
-
-
 
 # Plot of the digit classes in the latent space
 x_te_latent = encoder.predict(x_te, batch_size=batch_size)
@@ -145,9 +105,6 @@ plt.figure(figsize=(6, 6))
 plt.scatter(x_te_latent[:, 0], x_te_latent[:, 1], c=y_te)
 plt.colorbar()
 plt.show()
-
-
-
 
 # build decoder
 decoder_input = Input(shape=(z_dim,))
