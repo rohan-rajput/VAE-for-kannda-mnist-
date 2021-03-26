@@ -8,7 +8,7 @@ Training was done on Kannada MNIST digit dataset.
 
 
 ## Latency Space
-<img src="images/latency spaces/latency_space_kannada.png" width="500" height="500" />
+<img src="images/latency spaces/LATENCY_SPACE.png" width="500" height="500" />
 
 ## Citations
 **Prabhu, Vinay Uday. "Kannada-MNIST: A new handwritten digits dataset for the Kannada language." arXiv preprint arXiv:1908.01242 (2019).**. 
