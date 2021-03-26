@@ -4,7 +4,7 @@
 Training was done on Kannada MNIST digit dataset.
 
 ## Generated images 
-<img src="images/generated images/VAE_Output.png" width="480" height="480"/>
+<img src="images/Generated_Images/VAE_Kannada_sample.png" width="480" height="480"/>
 
 
 ## Latency Space
