@@ -89,11 +89,7 @@ vae.compile(optimizer='rmsprop')
 vae.summary()
 
 # train
-vae.fit(x_tr,
-       shuffle=True,
-       epochs=n_epoch,
-       batch_size=batch_size,
-       validation_data=(x_te, None), verbose=1)
+vae.fit(x_tr,shuffle=True,epochs=n_epoch,batch_size=batch_size,validation_data=(x_te, None), verbose=1)
 
 # build encoder
 encoder = Model(x, mu)
